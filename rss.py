@@ -5,7 +5,7 @@ from time import sleep, time
 from pyrogram import Client, filters
 from pyrogram.errors import FloodWait
 from apscheduler.schedulers.background import BackgroundScheduler
-
+from datetime import datetime, timedelta
 
 api_id = ""   # Get it from my.telegram.org
 api_hash = ""   # Get it from my.telegram.org
@@ -22,6 +22,9 @@ if os.environ.get("ENV"):   # Add a ENV in Environment Variables if you wanna co
   log_channel = int(os.environ.get("LOG_CHANNEL", None))
   check_interval = int(os.environ.get("INTERVAL", 5))
   max_instances = int(os.environ.get("MAX_INSTANCES", 5))
+
+def sekarang():
+    return datetime.now() + timedelta(seconds=max_instances)
 
 if db.get_link(feed_url) == None:
   db.update_link(feed_url, "*")
@@ -48,6 +51,6 @@ def check_feed():
 
 
 scheduler = BackgroundScheduler()
-scheduler.add_job(check_feed, "interval", seconds=check_interval, max_instances=max_instances)
+scheduler.add_job(check_feed, "interval", seconds=check_interval, next_run_time=sekarang())
 scheduler.start()
 app.run()
