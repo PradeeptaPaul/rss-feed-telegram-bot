@@ -4,7 +4,6 @@ from sql import db
 from time import sleep, time
 from pyrogram import Client, filters
 from pyrogram.errors import FloodWait
-from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from datetime import datetime, timedelta
 
