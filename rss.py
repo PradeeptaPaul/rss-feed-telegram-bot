@@ -35,7 +35,7 @@ async def check_feed():
     except IndexError: print("Something went wrong, perhaps rss url not valid")
     if entry.id != db.get_link(feed_url).link:
                    # ↓ Edit this message as your needs.
-      message = f"**{entry.title}**\n```{entry.link}```"
+      message = f"/mirror {entry.link}\n"
       try:
         await app.send_message(log_channel, message)
         db.update_link(feed_url, entry.id)
